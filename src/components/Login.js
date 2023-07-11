@@ -53,6 +53,8 @@ export default function Login() {
     setLoginModal(false);
   };
 
+  const getCredentials = () => {};
+
   async function signUp(e) {
     await createUserWithEmailAndPassword(auth, email, password);
   }
