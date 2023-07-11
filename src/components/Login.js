@@ -8,9 +8,11 @@ import {
   IconButton,
   Link,
 } from "@mui/material";
-
 import CloseIcon from "@mui/icons-material/Close";
 import GoogleIcon from "@mui/icons-material/Google";
+
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import auth from "../config/firebase";
 
 const style = {
   position: "absolute",
@@ -30,9 +32,16 @@ const style = {
 };
 
 export default function Login() {
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
   const [open, setOpen] = React.useState(true);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  async function signUp(e) {
+    e.preventDefault();
+    await createUserWithEmailAndPassword(auth, email, password);
+  }
 
   return (
     <div>
@@ -68,9 +77,30 @@ export default function Login() {
             <Typography>Continue with Google</Typography>
           </Button>
           <Typography>Or</Typography>
-          <TextField placeholder="Login" fullWidth></TextField>
-          <TextField placeholder="Password" fullWidth></TextField>
-          <Button variant="contained" fullWidth sx={{ p: 2 }}>
+          <TextField
+            value={email}
+            onChange={(e) => {
+              setEmail(e.target.value);
+            }}
+            placeholder="Email..."
+            fullWidth
+          ></TextField>
+          <TextField
+            type="password"
+            value={password}
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }}
+            placeholder="Password..."
+            fullWidth
+          ></TextField>
+          <Button
+            type="submit"
+            onClick={signUp}
+            variant="contained"
+            fullWidth
+            sx={{ p: 2 }}
+          >
             Submit
           </Button>
           <Typography>
