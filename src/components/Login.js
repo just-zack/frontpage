@@ -39,7 +39,6 @@ export default function Login() {
   const [password, setPassword] = React.useState("");
   const [signUpModal, setSignUpModal] = React.useState(true);
   const [loginModal, setLoginModal] = React.useState(false);
-  const handleOpen = () => setSignUpModal(true);
   const handleClose = () => {
     setSignUpModal(false);
     setLoginModal(false);
@@ -53,16 +52,28 @@ export default function Login() {
     setLoginModal(false);
   };
 
-  const getCredentials = () => {};
+  const clearFields = () => {
+    setEmail("");
+    setPassword("");
+  };
 
   async function signUp(e) {
     await createUserWithEmailAndPassword(auth, email, password);
+    await clearFields();
   }
 
   async function logIn(e) {
-    e.preventDefault();
     await signInWithEmailAndPassword(auth, email, password);
+    await clearFields();
   }
+
+  const keyPress = (e) => {
+    if (e.keyCode == 13) {
+      if (signUpModal) {
+        signUp();
+      } else logIn();
+    }
+  };
 
   return (
     <>
@@ -116,6 +127,7 @@ export default function Login() {
               }}
               placeholder="Password..."
               fullWidth
+              onKeyDown={keyPress}
             ></TextField>
             <Button
               type="submit"
@@ -185,6 +197,7 @@ export default function Login() {
               }}
               placeholder="Password..."
               fullWidth
+              onKeyDown={keyPress}
             ></TextField>
             <Button
               type="submit"

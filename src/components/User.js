@@ -7,11 +7,12 @@ export default function getUser() {
       // User is signed in, see docs for a list of available properties
       // https://firebase.google.com/docs/reference/js/auth.user
       const uid = user.uid;
-      alert(user.email);
+      console.log(user.email);
       // ...
     } else {
       // User is signed out
       // ...
+
       alert("Need to login");
     }
   });
