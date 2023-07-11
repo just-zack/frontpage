@@ -6,17 +6,14 @@ import AutoGraphOutlinedIcon from "@mui/icons-material/AutoGraphOutlined";
 export default function Sort() {
   return (
     <Card
-      raised
       sx={{
         display: "flex",
         alignItems: "center",
         marginTop: "20px",
         padding: "10px",
+        width: "100%",
       }}
     >
-      <Typography variant="h6" sx={{ paddingLeft: "30px" }}>
-        Popular Posts:{" "}
-      </Typography>
       <CardActions disableSpacing>
         <IconButton aria-label="hot" sx={{ borderRadius: "0px", gap: "10px" }}>
           <LocalFireDepartmentIcon />
