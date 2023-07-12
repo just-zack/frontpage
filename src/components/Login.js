@@ -14,6 +14,9 @@ import GoogleIcon from "@mui/icons-material/Google";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  getAuth,
+  GoogleAuthProvider,
+  signInWithRedirect,
 } from "firebase/auth";
 import auth from "../config/firebase";
 
@@ -75,6 +78,30 @@ export default function Login() {
     }
   };
 
+  const provider = new GoogleAuthProvider();
+
+  // getAuth()
+  //   .getUser()
+  //   .then((userRecord) => {
+  //     // See the UserRecord reference doc for the contents of userRecord.
+  //     console.log(`Successfully fetched user data: ${userRecord.toJSON()}`);
+  //   })
+  //   .catch((error) => {
+  //     console.log("Error fetching user data:", error);
+  //   });
+
+  //googleAuth
+  const signInWithGoogle = () => {
+    signInWithRedirect(auth, provider)
+      .then((userCredential) => {
+        console.log(userCredential);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    // await getAuth();
+  };
+
   return (
     <>
       <div>
@@ -103,6 +130,7 @@ export default function Login() {
               {} <Link>User Agreement</Link> and <Link>Privacy Policy</Link>.
             </Typography>
             <Button
+              onClick={signInWithGoogle}
               fullWidth
               variant="outlined"
               sx={{ p: 2, borderRadius: "5px", gap: "20px" }}

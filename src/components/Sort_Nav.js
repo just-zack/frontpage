@@ -10,7 +10,7 @@ export default function Sort() {
         display: "flex",
         alignItems: "center",
         marginTop: "20px",
-        padding: "10px",
+        padding: "0",
         width: "100%",
       }}
     >

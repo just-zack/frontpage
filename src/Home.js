@@ -7,7 +7,6 @@ import getUser from "./components/User";
 import React from "react";
 
 export default function Home() {
-  getUser();
   return (
     <div className="Home">
       <PrimarySearchAppBar />

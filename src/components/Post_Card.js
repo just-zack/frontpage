@@ -39,7 +39,7 @@ export default function PostCard() {
   };
 
   return (
-    <Card raised sx={{ marginTop: "10px", padding: "0" }}>
+    <Card raised sx={{ marginTop: "10px", padding: "0", width: "100%" }}>
       <CardContent sx={{ display: "flex" }}>
         <CardContent>
           <IconButton
