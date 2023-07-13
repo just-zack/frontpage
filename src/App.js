@@ -13,11 +13,7 @@ function App() {
     displayName: "Guest User",
     email: "guest@email.com",
   };
-  const [activeUser, setActiveUser] = useState({
-    photoURL: guestIMG,
-    displayName: "Guest User",
-    email: "guest@email.com",
-  });
+  const [activeUser, setActiveUser] = useState(null);
 
   function GetUser() {
     useEffect(() => {

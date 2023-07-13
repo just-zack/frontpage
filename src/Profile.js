@@ -2,6 +2,9 @@ import PrimarySearchAppBar from "./components/Nav_mui";
 import Sort from "./components/Sort_Nav";
 import PostCard from "./components/Post_Card";
 
+import Login from "./components/Login";
+import Logout from "./components/logout";
+
 import {
   Card,
   Typography,
@@ -11,8 +14,13 @@ import {
   Avatar,
 } from "@mui/material";
 
-export default function Profile({ activeUser }) {
+export default function Profile({ activeUser, setActiveUser }) {
   console.log(activeUser);
+
+  function signOut() {
+    Logout();
+    setActiveUser(null);
+  }
   return (
     <>
       <PrimarySearchAppBar activeUser={activeUser} />
@@ -46,18 +54,38 @@ export default function Profile({ activeUser }) {
               gap: 1,
             }}
           >
-            <Avatar
-              sx={{ height: "70px", width: "70px" }}
-              src={activeUser.photoURL}
-            ></Avatar>
-            <Typography variant="h6">{activeUser.displayName} </Typography>
-            <Typography variant="h6">{activeUser.email} </Typography>
+            {activeUser ? (
+              <Avatar
+                src={activeUser.photoURL}
+                sx={{ height: "70px", width: "70px" }}
+              />
+            ) : (
+              <Avatar sx={{ height: "70px", width: "70px" }} />
+            )}
+            {/* <Avatar sx={{ height: "70px", width: "70px" }}>
+            </Avatar> */}
+            <Typography variant="h6">
+              {activeUser ? activeUser.displayName : "Guest"}{" "}
+            </Typography>
+            <Typography variant="h6">
+              {" "}
+              {activeUser ? activeUser.email : "Guest EMAIL"}{" "}
+            </Typography>
             <Button variant="contained" fullWidth>
               Edit Profile
+            </Button>
+            <Button
+              onClick={signOut}
+              variant="contained"
+              color="error"
+              fullWidth
+            >
+              Sign Out
             </Button>
           </Card>
         </Grid>
       </Grid>
+      <Login />
     </>
   );
 }

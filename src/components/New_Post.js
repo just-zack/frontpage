@@ -12,7 +12,7 @@ import LocalFireDepartmentIcon from "@mui/icons-material/LocalFireDepartment";
 import HistoryOutlinedIcon from "@mui/icons-material/HistoryOutlined";
 import AutoGraphOutlinedIcon from "@mui/icons-material/AutoGraphOutlined";
 
-export default function NewPostCard() {
+export default function NewPostCard({ activeUser }) {
   return (
     <Card
       raised
@@ -30,14 +30,23 @@ export default function NewPostCard() {
           padding: "10px",
         }}
       >
-        <Avatar
-          sx={{
-            height: "40px",
-            width: "40px",
-          }}
-          aria-label="Profile Name"
-          alt="Profile Name"
-        ></Avatar>
+        {activeUser ? (
+          <Avatar
+            src={activeUser.photoURL}
+            sx={{
+              height: "40px",
+              width: "40px",
+            }}
+          />
+        ) : (
+          <Avatar
+            sx={{
+              height: "40px",
+              width: "40px",
+            }}
+          />
+        )}
+
         <TextField label="New Post" fullWidth></TextField>
         <Button variant="contained">Post</Button>
       </CardContent>

@@ -154,7 +154,7 @@ export default function PrimarySearchAppBar({ activeUser }) {
         <p>Notifications</p>
       </MenuItem>
       <MenuItem onClick={handleProfileMenuOpen} sx={{ gap: "10px" }}>
-        <Avatar></Avatar>
+        {activeUser ? <Avatar src={activeUser.photoURL} /> : <Avatar />}
         <p>Profile</p>
       </MenuItem>
     </Menu>
@@ -201,17 +201,32 @@ export default function PrimarySearchAppBar({ activeUser }) {
                 <NotificationsIcon />
               </Badge>
             </IconButton>
-            <IconButton
-              size="large"
-              edge="end"
-              aria-label="account of current user"
-              aria-controls={menuId}
-              aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
-              color="inherit"
-            >
-              <Avatar></Avatar>
-            </IconButton>
+
+            {activeUser ? (
+              <IconButton
+                size="large"
+                edge="end"
+                aria-label="account of current user"
+                aria-controls={menuId}
+                aria-haspopup="true"
+                onClick={handleProfileMenuOpen}
+                color="inherit"
+              >
+                <Avatar src={activeUser.photoURL} />
+              </IconButton>
+            ) : (
+              <IconButton
+                size="large"
+                edge="end"
+                aria-label="account of current user"
+                aria-controls={menuId}
+                aria-haspopup="true"
+                onClick={handleProfileMenuOpen}
+                color="inherit"
+              >
+                <Avatar />
+              </IconButton>
+            )}
           </Box>
           <Box sx={{ display: { xs: "flex", md: "none" } }}>
             <IconButton

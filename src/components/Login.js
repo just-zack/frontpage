@@ -37,7 +37,7 @@ const style = {
   alignItems: "center",
 };
 
-export default function Login() {
+export default function Login({ activeUser }) {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [signUpModal, setSignUpModal] = React.useState(true);
@@ -80,17 +80,6 @@ export default function Login() {
 
   const provider = new GoogleAuthProvider();
 
-  // getAuth()
-  //   .getUser()
-  //   .then((userRecord) => {
-  //     // See the UserRecord reference doc for the contents of userRecord.
-  //     console.log(`Successfully fetched user data: ${userRecord.toJSON()}`);
-  //   })
-  //   .catch((error) => {
-  //     console.log("Error fetching user data:", error);
-  //   });
-
-  //googleAuth
   const signInWithGoogle = () => {
     signInWithRedirect(auth, provider)
       .then((userCredential) => {
@@ -99,152 +88,160 @@ export default function Login() {
       .catch((error) => {
         console.log(error);
       });
-    // await getAuth();
   };
-
-  return (
-    <>
-      <div>
-        <Modal
-          open={signUpModal}
-          onClose={handleClose}
-          aria-labelledby="modal-login"
-          aria-describedby="modal-login-to-post"
-        >
-          <Box sx={style}>
-            <IconButton sx={{ alignSelf: "flex-end" }}>
-              <CloseIcon onClick={handleClose} />
-            </IconButton>
-            <Typography
-              id="modal-modal-title"
-              variant="h5"
-              component="h2"
-              fontWeight="700"
-            >
-              New to Reddit? Sign up to vote on posts and comments to help
-              everyone find the best content.
-            </Typography>
-            <Typography width="80%" alignSelf="flex-start" paddingBottom="10px">
-              By continuing, you are setting up a Reddit account and agree to
-              our
-              {} <Link>User Agreement</Link> and <Link>Privacy Policy</Link>.
-            </Typography>
-            <Button
-              onClick={signInWithGoogle}
-              fullWidth
-              variant="outlined"
-              sx={{ p: 2, borderRadius: "5px", gap: "20px" }}
-            >
-              <GoogleIcon />
-              <Typography>Continue with Google</Typography>
-            </Button>
-            <Typography>Or</Typography>
-            <TextField
-              value={email}
-              onChange={(e) => {
-                setEmail(e.target.value);
-              }}
-              placeholder="Email..."
-              fullWidth
-            ></TextField>
-            <TextField
-              type="password"
-              value={password}
-              onChange={(e) => {
-                setPassword(e.target.value);
-              }}
-              placeholder="Password..."
-              fullWidth
-              onKeyDown={keyPress}
-            ></TextField>
-            <Button
-              type="submit"
-              onClick={signUp}
-              variant="contained"
-              fullWidth
-              sx={{ p: 2 }}
-            >
-              Submit
-            </Button>
-            <Typography>
-              Already a Redditor?{" "}
-              <Link onClick={handleLoginOpen} underlined="none">
-                Login
-              </Link>
-            </Typography>
-          </Box>
-        </Modal>
-      </div>
-      <div>
-        <Modal
-          open={loginModal}
-          onClose={handleClose}
-          aria-labelledby="modal-login"
-          aria-describedby="modal-login-to-post"
-        >
-          <Box sx={style}>
-            <IconButton sx={{ alignSelf: "flex-end" }}>
-              <CloseIcon onClick={handleClose} />
-            </IconButton>
-            <Typography
-              id="modal-modal-title"
-              variant="h5"
-              component="h2"
-              fontWeight="700"
-              alignSelf="flex-start"
-            >
-              Log In
-            </Typography>
-            <Typography width="80%" alignSelf="flex-start" paddingBottom="10px">
-              By continuing, you are setting up a Reddit account and agree to
-              our
-              {} <Link>User Agreement</Link> and <Link>Privacy Policy</Link>.
-            </Typography>
-            <Button
-              fullWidth
-              variant="outlined"
-              sx={{ p: 2, borderRadius: "5px", gap: "20px" }}
-            >
-              <GoogleIcon />
-              <Typography>Continue with Google</Typography>
-            </Button>
-            <Typography>Or</Typography>
-            <TextField
-              value={email}
-              onChange={(e) => {
-                setEmail(e.target.value);
-              }}
-              placeholder="Username..."
-              fullWidth
-            ></TextField>
-            <TextField
-              type="password"
-              value={password}
-              onChange={(e) => {
-                setPassword(e.target.value);
-              }}
-              placeholder="Password..."
-              fullWidth
-              onKeyDown={keyPress}
-            ></TextField>
-            <Button
-              type="submit"
-              onClick={logIn}
-              variant="contained"
-              fullWidth
-              sx={{ p: 2 }}
-            >
-              Submit
-            </Button>
-            <Typography>
-              Don't have an account?{" "}
-              <Link onClick={handleSignUpOpen} underlined="none">
-                Sign Up
-              </Link>
-            </Typography>
-          </Box>
-        </Modal>
-      </div>
-    </>
-  );
+  if (!activeUser) {
+    return (
+      <>
+        <div>
+          <Modal
+            open={signUpModal}
+            onClose={handleClose}
+            aria-labelledby="modal-login"
+            aria-describedby="modal-login-to-post"
+          >
+            <Box sx={style}>
+              <IconButton sx={{ alignSelf: "flex-end" }}>
+                <CloseIcon onClick={handleClose} />
+              </IconButton>
+              <Typography
+                id="modal-modal-title"
+                variant="h5"
+                component="h2"
+                fontWeight="700"
+              >
+                New to Reddit? Sign up to vote on posts and comments to help
+                everyone find the best content.
+              </Typography>
+              <Typography
+                width="80%"
+                alignSelf="flex-start"
+                paddingBottom="10px"
+              >
+                By continuing, you are setting up a Reddit account and agree to
+                our
+                {} <Link>User Agreement</Link> and <Link>Privacy Policy</Link>.
+              </Typography>
+              <Button
+                onClick={signInWithGoogle}
+                fullWidth
+                variant="outlined"
+                sx={{ p: 2, borderRadius: "5px", gap: "20px" }}
+              >
+                <GoogleIcon />
+                <Typography>Continue with Google</Typography>
+              </Button>
+              <Typography>Or</Typography>
+              <TextField
+                value={email}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                }}
+                placeholder="Email..."
+                fullWidth
+              ></TextField>
+              <TextField
+                type="password"
+                value={password}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                }}
+                placeholder="Password..."
+                fullWidth
+                onKeyDown={keyPress}
+              ></TextField>
+              <Button
+                type="submit"
+                onClick={signUp}
+                variant="contained"
+                fullWidth
+                sx={{ p: 2 }}
+              >
+                Submit
+              </Button>
+              <Typography>
+                Already a Redditor?{" "}
+                <Link onClick={handleLoginOpen} underlined="none">
+                  Login
+                </Link>
+              </Typography>
+            </Box>
+          </Modal>
+        </div>
+        <div>
+          <Modal
+            open={loginModal}
+            onClose={handleClose}
+            aria-labelledby="modal-login"
+            aria-describedby="modal-login-to-post"
+          >
+            <Box sx={style}>
+              <IconButton sx={{ alignSelf: "flex-end" }}>
+                <CloseIcon onClick={handleClose} />
+              </IconButton>
+              <Typography
+                id="modal-modal-title"
+                variant="h5"
+                component="h2"
+                fontWeight="700"
+                alignSelf="flex-start"
+              >
+                Log In
+              </Typography>
+              <Typography
+                width="80%"
+                alignSelf="flex-start"
+                paddingBottom="10px"
+              >
+                By continuing, you are setting up a Reddit account and agree to
+                our
+                {} <Link>User Agreement</Link> and <Link>Privacy Policy</Link>.
+              </Typography>
+              <Button
+                fullWidth
+                variant="outlined"
+                sx={{ p: 2, borderRadius: "5px", gap: "20px" }}
+              >
+                <GoogleIcon />
+                <Typography>Continue with Google</Typography>
+              </Button>
+              <Typography>Or</Typography>
+              <TextField
+                value={email}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                }}
+                placeholder="Username..."
+                fullWidth
+              ></TextField>
+              <TextField
+                type="password"
+                value={password}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                }}
+                placeholder="Password..."
+                fullWidth
+                onKeyDown={keyPress}
+              ></TextField>
+              <Button
+                type="submit"
+                onClick={logIn}
+                variant="contained"
+                fullWidth
+                sx={{ p: 2 }}
+              >
+                Submit
+              </Button>
+              <Typography>
+                Don't have an account?{" "}
+                <Link onClick={handleSignUpOpen} underlined="none">
+                  Sign Up
+                </Link>
+              </Typography>
+            </Box>
+          </Modal>
+        </div>
+      </>
+    );
+  } else return;
 }
