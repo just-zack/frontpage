@@ -154,7 +154,7 @@ export default function PrimarySearchAppBar({ activeUser }) {
         <p>Notifications</p>
       </MenuItem>
       <MenuItem onClick={handleProfileMenuOpen} sx={{ gap: "10px" }}>
-        <Avatar src={activeUser.photoURL}></Avatar>
+        <Avatar></Avatar>
         <p>Profile</p>
       </MenuItem>
     </Menu>
@@ -210,7 +210,7 @@ export default function PrimarySearchAppBar({ activeUser }) {
               onClick={handleProfileMenuOpen}
               color="inherit"
             >
-              <Avatar src={activeUser.photoURL}></Avatar>
+              <Avatar></Avatar>
             </IconButton>
           </Box>
           <Box sx={{ display: { xs: "flex", md: "none" } }}>
