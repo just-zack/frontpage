@@ -1,12 +1,14 @@
 import * as React from "react";
 import {
   TextField,
+  Card,
   Modal,
   Box,
   Button,
   Typography,
   IconButton,
   Link,
+  Avatar,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import GoogleIcon from "@mui/icons-material/Google";
@@ -37,7 +39,7 @@ const style = {
   alignItems: "center",
 };
 
-export default function NewPostModal({ newPost, setNewPost }) {
+export default function NewPostModal({ newPost, setNewPost, activeUser }) {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [signUpModal, setSignUpModal] = React.useState(true);
@@ -47,9 +49,6 @@ export default function NewPostModal({ newPost, setNewPost }) {
     setNewPost(false);
   };
 
-  const handleOpen = () => {
-    setNewPost(true);
-  };
   const clearFields = () => {
     setEmail("");
     setPassword("");
@@ -82,7 +81,37 @@ export default function NewPostModal({ newPost, setNewPost }) {
           aria-labelledby="modal-login"
           aria-describedby="modal-login-to-post"
         >
-          <Box sx={style}>Hello</Box>
+          <Box sx={style}>
+            <Card sx={{ display: "flex", alignItems: "center" }}>
+              {activeUser ? (
+                <Avatar
+                  src={activeUser.photoURL}
+                  sx={{
+                    height: "40px",
+                    width: "40px",
+                  }}
+                />
+              ) : (
+                <Avatar
+                  sx={{
+                    height: "40px",
+                    width: "40px",
+                  }}
+                />
+              )}
+              <Typography>UserName</Typography>
+            </Card>
+            <TextField placeholder="Title..." fullWidth required></TextField>
+            <TextField
+              placeholder="Description..."
+              fullWidth
+              multiline
+              minRows={4}
+            ></TextField>
+            <Button variant="contained" fullWidth>
+              Submit Post
+            </Button>
+          </Box>
         </Modal>
       </div>
     </>

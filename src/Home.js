@@ -18,7 +18,11 @@ export default function Home({ activeUser, setActiveUser }) {
       <PostCard />
       <PostCard />
       <Login activeUser={activeUser} />
-      <NewPostModal newPost={newPost} setNewPost={setNewPost} />
+      <NewPostModal
+        newPost={newPost}
+        setNewPost={setNewPost}
+        activeUser={activeUser}
+      />
     </div>
   );
 }
