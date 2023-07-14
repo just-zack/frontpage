@@ -6,12 +6,13 @@ import {
   Box,
   Button,
   Typography,
-  IconButton,
-  Link,
   Avatar,
+  CardContent,
+  IconButton,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import GoogleIcon from "@mui/icons-material/Google";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 import {
   createUserWithEmailAndPassword,
@@ -40,36 +41,18 @@ const style = {
 };
 
 export default function NewPostModal({ newPost, setNewPost, activeUser }) {
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
-  const [signUpModal, setSignUpModal] = React.useState(true);
-  const [loginModal, setLoginModal] = React.useState(false);
+  const [upload, setUpload] = React.useState(null);
 
   const handleClose = () => {
     setNewPost(false);
   };
 
-  const clearFields = () => {
-    setEmail("");
-    setPassword("");
+  const updateUpload = (e) => {
+    setUpload(URL.createObjectURL(e.target.files[0]));
   };
 
-  async function signUp(e) {
-    await createUserWithEmailAndPassword(auth, email, password);
-    await clearFields();
-  }
-
-  async function logIn(e) {
-    await signInWithEmailAndPassword(auth, email, password);
-    await clearFields();
-  }
-
-  const keyPress = (e) => {
-    if (e.keyCode == 13) {
-      if (signUpModal) {
-        signUp();
-      } else logIn();
-    }
+  const clearUpload = (e) => {
+    setUpload(null);
   };
 
   return (
@@ -108,6 +91,35 @@ export default function NewPostModal({ newPost, setNewPost, activeUser }) {
               multiline
               minRows={4}
             ></TextField>
+            <CardContent
+              sx={{
+                width: "100%",
+                display: "flex",
+                flexDirection: "column",
+                gap: "10px",
+              }}
+            >
+              File Upload (accepts imgs and gifs)
+              <div>
+                <input
+                  type="file"
+                  id="imgUpload"
+                  name="imageUpload"
+                  accept=".jpeg,.png,.gif,.mp4"
+                  onChange={updateUpload}
+                />
+              </div>
+              {upload ? (
+                <div>
+                  <img src={upload} width="100px" />
+                  <IconButton color="error" size="small" onClick={clearUpload}>
+                    <DeleteIcon />
+                  </IconButton>
+                </div>
+              ) : (
+                <div />
+              )}
+            </CardContent>
             <Button variant="contained" fullWidth>
               Submit Post
             </Button>
