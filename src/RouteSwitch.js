@@ -7,7 +7,12 @@ const RouteSwitch = ({ activeUser, setActiveUser }) => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home activeUser={activeUser} />} />
+        <Route
+          path="/"
+          element={
+            <Home activeUser={activeUser} setActiveUser={setActiveUser} />
+          }
+        />
         <Route
           path="/profile"
           element={

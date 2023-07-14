@@ -1,5 +1,6 @@
 import * as React from "react";
 import { useNavigate } from "react-router-dom";
+import logout from "./logout";
 
 import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
@@ -59,7 +60,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function PrimarySearchAppBar({ activeUser }) {
+export default function PrimarySearchAppBar({ activeUser, setActiveUser }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   let navigate = useNavigate();
@@ -94,6 +95,12 @@ export default function PrimarySearchAppBar({ activeUser }) {
     handleMenuClose();
   };
 
+  const signOut = () => {
+    handleMenuClose();
+    logout();
+    setActiveUser(null);
+  };
+
   const menuId = "primary-search-account-menu";
   const renderMenu = (
     <Menu
@@ -112,7 +119,7 @@ export default function PrimarySearchAppBar({ activeUser }) {
       onClose={handleMenuClose}
     >
       <MenuItem onClick={navigateProfile}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>Sign Out</MenuItem>
+      <MenuItem onClick={signOut}>Sign Out</MenuItem>
     </Menu>
   );
 

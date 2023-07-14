@@ -5,10 +5,13 @@ import Login from "./components/Login";
 
 import React from "react";
 
-export default function Home({ activeUser }) {
+export default function Home({ activeUser, setActiveUser }) {
   return (
     <div className="Home">
-      <PrimarySearchAppBar />
+      <PrimarySearchAppBar
+        activeUser={activeUser}
+        setActiveUser={setActiveUser}
+      />
       <NewPostCard activeUser={activeUser} />
       <PostCard />
       <PostCard />

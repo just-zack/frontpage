@@ -3,7 +3,7 @@ import auth from "../config/firebase";
 
 import { useEffect } from "react";
 
-export default function Logout() {
+export default function logout() {
   signOut(auth)
     .then(() => {
       console.log("Sign-out successful.");

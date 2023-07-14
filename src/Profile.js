@@ -3,7 +3,7 @@ import Sort from "./components/Sort_Nav";
 import PostCard from "./components/Post_Card";
 
 import Login from "./components/Login";
-import Logout from "./components/logout";
+import logout from "./components/logout";
 
 import {
   Card,
@@ -18,12 +18,15 @@ export default function Profile({ activeUser, setActiveUser }) {
   console.log(activeUser);
 
   function signOut() {
-    Logout();
+    logout();
     setActiveUser(null);
   }
   return (
     <>
-      <PrimarySearchAppBar activeUser={activeUser} />
+      <PrimarySearchAppBar
+        activeUser={activeUser}
+        setActiveUser={setActiveUser}
+      />
       <Grid
         p={4}
         sx={{
@@ -39,7 +42,6 @@ export default function Profile({ activeUser, setActiveUser }) {
           flexDirection="column"
           alignItems="flex-start"
         >
-          <Typography>Posts</Typography>
           <Sort />
           <PostCard />
         </Grid>
@@ -85,7 +87,7 @@ export default function Profile({ activeUser, setActiveUser }) {
           </Card>
         </Grid>
       </Grid>
-      <Login />
+      <Login activeUser={activeUser} />
     </>
   );
 }
