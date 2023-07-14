@@ -12,7 +12,14 @@ import LocalFireDepartmentIcon from "@mui/icons-material/LocalFireDepartment";
 import HistoryOutlinedIcon from "@mui/icons-material/HistoryOutlined";
 import AutoGraphOutlinedIcon from "@mui/icons-material/AutoGraphOutlined";
 
-export default function NewPostCard({ activeUser }) {
+import NewPostModal from "./NewPost_Modal";
+import Login from "./Login";
+
+export default function NewPostCard({ activeUser, setNewPost }) {
+  const handleOpen = () => {
+    setNewPost(true);
+  };
+
   return (
     <Card
       raised
@@ -47,8 +54,10 @@ export default function NewPostCard({ activeUser }) {
           />
         )}
 
-        <TextField label="New Post" fullWidth></TextField>
-        <Button variant="contained">Post</Button>
+        <TextField label="New Post" fullWidth onClick={handleOpen}></TextField>
+        <Button variant="contained" onClick={handleOpen}>
+          Post
+        </Button>
       </CardContent>
       <CardContent
         sx={{

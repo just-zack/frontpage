@@ -4,6 +4,7 @@ import PostCard from "./components/Post_Card";
 
 import Login from "./components/Login";
 import logout from "./components/logout";
+import guest from "./img/guest.png";
 
 import {
   Card,
@@ -62,10 +63,8 @@ export default function Profile({ activeUser, setActiveUser }) {
                 sx={{ height: "70px", width: "70px" }}
               />
             ) : (
-              <Avatar sx={{ height: "70px", width: "70px" }} />
+              <Avatar src="" sx={{ height: "70px", width: "70px" }} />
             )}
-            {/* <Avatar sx={{ height: "70px", width: "70px" }}>
-            </Avatar> */}
             <Typography variant="h6">
               {activeUser ? activeUser.displayName : "Guest"}{" "}
             </Typography>
