@@ -29,11 +29,10 @@ const style = {
   alignItems: "center",
 };
 
-export default function NewPostModal({ newPost, setNewPost, activeUser }) {
+export default function ProfileCreation() {
   const [upload, setUpload] = React.useState(null);
 
   const handleClose = () => {
-    setNewPost(false);
     setUpload(null);
   };
 
@@ -55,15 +54,7 @@ export default function NewPostModal({ newPost, setNewPost, activeUser }) {
           aria-describedby="modal-login-to-post"
         >
           <Box sx={style}>
-            <CardContent
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                gap: "10px",
-                width: "100%",
-                justifyContent: "flex-start",
-              }}
-            >
+            <CardContent sx={{ display: "flex", alignItems: "center" }}>
               {activeUser ? (
                 <Avatar
                   src={activeUser.photoURL}
