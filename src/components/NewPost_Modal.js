@@ -10,18 +10,7 @@ import {
   CardContent,
   IconButton,
 } from "@mui/material";
-import CloseIcon from "@mui/icons-material/Close";
-import GoogleIcon from "@mui/icons-material/Google";
 import DeleteIcon from "@mui/icons-material/Delete";
-
-import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  getAuth,
-  GoogleAuthProvider,
-  signInWithRedirect,
-} from "firebase/auth";
-import auth from "../config/firebase";
 
 const style = {
   position: "absolute",
@@ -45,6 +34,7 @@ export default function NewPostModal({ newPost, setNewPost, activeUser }) {
 
   const handleClose = () => {
     setNewPost(false);
+    setUpload(null);
   };
 
   const updateUpload = (e) => {
