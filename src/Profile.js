@@ -1,6 +1,7 @@
 import PrimarySearchAppBar from "./components/Nav_mui";
 import Sort from "./components/Sort_Nav";
 import PostCard from "./components/Post_Card";
+import UpdateProfile from "./components/Profile_creation";
 
 import Login from "./components/Login";
 import logout from "./components/logout";
@@ -15,13 +16,23 @@ import {
   Avatar,
 } from "@mui/material";
 
-export default function Profile({ activeUser, setActiveUser }) {
+export default function Profile({
+  activeUser,
+  setActiveUser,
+  profile,
+  setProfile,
+}) {
   console.log(activeUser);
 
   function signOut() {
     logout();
     setActiveUser(null);
   }
+
+  const editProfile = () => {
+    setProfile(true);
+  };
+
   return (
     <>
       <PrimarySearchAppBar
@@ -72,7 +83,7 @@ export default function Profile({ activeUser, setActiveUser }) {
               {" "}
               {activeUser ? activeUser.email : "Guest EMAIL"}{" "}
             </Typography>
-            <Button variant="contained" fullWidth>
+            <Button onClick={editProfile} variant="contained" fullWidth>
               Edit Profile
             </Button>
             <Button
@@ -87,6 +98,7 @@ export default function Profile({ activeUser, setActiveUser }) {
         </Grid>
       </Grid>
       <Login activeUser={activeUser} />
+      <UpdateProfile profile={profile} setProfile={setProfile} />
     </>
   );
 }

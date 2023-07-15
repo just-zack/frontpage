@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState } from "react";
 import {
   TextField,
   Card,
@@ -9,6 +9,7 @@ import {
   Avatar,
   CardContent,
   IconButton,
+  Badge,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 
@@ -29,11 +30,15 @@ const style = {
   alignItems: "center",
 };
 
-export default function ProfileCreation() {
-  const [upload, setUpload] = React.useState(null);
+export default function UpdateProfile({ profile, setProfile }) {
+  const [upload, setUpload] = useState(null);
+
+  const avatarTemplate = (
+    <Avatar sx={{ width: "80px", height: "80px" }}></Avatar>
+  );
 
   const handleClose = () => {
-    setUpload(null);
+    setProfile(false);
   };
 
   const updateUpload = (e) => {
@@ -48,32 +53,46 @@ export default function ProfileCreation() {
     <>
       <div>
         <Modal
-          open={newPost}
+          open={profile}
           onClose={handleClose}
           aria-labelledby="modal-login"
           aria-describedby="modal-login-to-post"
         >
           <Box sx={style}>
-            <CardContent sx={{ display: "flex", alignItems: "center" }}>
-              {activeUser ? (
+            <Typography variant="h5">Edit Profile</Typography>
+            <Badge
+              overlap="circular"
+              anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+              badgeContent={
+                <IconButton onClick={clearUpload}>
+                  <DeleteIcon color="error" />
+                </IconButton>
+              }
+            >
+              {upload ? (
                 <Avatar
-                  src={activeUser.photoURL}
-                  sx={{
-                    height: "40px",
-                    width: "40px",
-                  }}
-                />
+                  src={upload}
+                  sx={{ width: "100px", height: "100px" }}
+                ></Avatar>
               ) : (
-                <Avatar
-                  sx={{
-                    height: "40px",
-                    width: "40px",
-                  }}
-                />
+                avatarTemplate
               )}
-              <Typography>UserName</Typography>
+            </Badge>
+
+            <CardContent sx={{ width: "100%", justifyContent: "flex-start" }}>
+              <input
+                type="file"
+                id="imgUpload"
+                name="imageUpload"
+                accept=".jpeg,.png,.gif,.mp4"
+                onChange={updateUpload}
+              />
             </CardContent>
-            <TextField placeholder="Title..." fullWidth required></TextField>
+            <TextField
+              placeholder="Pick a Username..."
+              fullWidth
+              required
+            ></TextField>
             <TextField
               placeholder="Description..."
               fullWidth
@@ -87,30 +106,9 @@ export default function ProfileCreation() {
                 flexDirection: "column",
                 gap: "10px",
               }}
-            >
-              File Upload (accepts imgs and gifs)
-              <div>
-                <input
-                  type="file"
-                  id="imgUpload"
-                  name="imageUpload"
-                  accept=".jpeg,.png,.gif,.mp4"
-                  onChange={updateUpload}
-                />
-              </div>
-              {upload ? (
-                <div>
-                  <img src={upload} width="100px" />
-                  <IconButton color="error" size="small" onClick={clearUpload}>
-                    <DeleteIcon />
-                  </IconButton>
-                </div>
-              ) : (
-                <div />
-              )}
-            </CardContent>
+            ></CardContent>
             <Button variant="contained" fullWidth>
-              Submit Post
+              Update Profile
             </Button>
           </Box>
         </Modal>

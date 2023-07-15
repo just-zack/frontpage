@@ -14,6 +14,7 @@ function App() {
     email: "guest@email.com",
   };
   const [activeUser, setActiveUser] = useState(null);
+  const [profile, setProfile] = useState(false);
 
   function GetUser() {
     useEffect(() => {
@@ -35,7 +36,12 @@ function App() {
   GetUser();
   return (
     <div className="App">
-      <RouteSwitch activeUser={activeUser} setActiveUser={setActiveUser} />
+      <RouteSwitch
+        activeUser={activeUser}
+        setActiveUser={setActiveUser}
+        profile={profile}
+        setProfile={setProfile}
+      />
     </div>
   );
 }

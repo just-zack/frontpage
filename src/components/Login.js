@@ -37,7 +37,7 @@ const style = {
   alignItems: "center",
 };
 
-export default function Login({ activeUser }) {
+export default function Login({ activeUser, profile, setProfile }) {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [signUpModal, setSignUpModal] = React.useState(true);
@@ -63,6 +63,7 @@ export default function Login({ activeUser }) {
   async function signUp(e) {
     await createUserWithEmailAndPassword(auth, email, password);
     await clearFields();
+    await setProfile(true);
   }
 
   async function logIn(e) {
@@ -83,7 +84,7 @@ export default function Login({ activeUser }) {
   const signInWithGoogle = () => {
     signInWithRedirect(auth, provider)
       .then((userCredential) => {
-        console.log(userCredential);
+        console.log(userCredential).then(setProfile(true));
       })
       .catch((error) => {
         console.log(error);
